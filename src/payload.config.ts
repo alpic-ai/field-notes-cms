@@ -13,6 +13,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
+import { migrations } from './migrations'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -61,6 +62,7 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: sqliteAdapter({
+    prodMigrations: migrations,
     client: {
       // Railway mounts volumes at runtime, after the build. Use a local database
       // for build-time route discovery and the mounted database for the live app.
