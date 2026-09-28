@@ -16,8 +16,7 @@
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation eslint . --fix",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "start:railway": "sh -c 'node --import tsx scripts/bootstrap.ts && next start -H 0.0.0.0 -p ${PORT:-3000}'",
+    "start": "sh -c 'node --import tsx scripts/bootstrap.ts && next start -H 0.0.0.0 -p ${PORT:-3000}'",
     "seed": "node --import tsx scripts/seed.ts",
     "test": "node --import tsx scripts/smoke.ts"
   },

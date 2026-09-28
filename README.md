@@ -44,7 +44,7 @@ These endpoints give an external client realistic structured content to query. Y
 
 ## Deploy on Railway
 
-The included `railway.json` builds with Railpack and starts the site with `pnpm start:railway`. Create a Railway service from this repository and attach **one persistent volume mounted at `/app/data`**. At runtime the app stores SQLite at `/app/data/field-notes.db` and uploaded media under `/app/data/media`. On an empty volume, startup imports the bundled articles and photos once; subsequent starts keep editorial changes and admin users.
+The included `railway.json` builds with Railpack and starts the site with `pnpm start`. Create a Railway service from this repository and attach **one persistent volume mounted at `/app/data`**. At runtime the app stores SQLite at `/app/data/field-notes.db` and uploaded media under `/app/data/media`. On an empty volume, startup imports the bundled articles and photos once; subsequent starts keep editorial changes and admin users.
 
 Set `PAYLOAD_SECRET`, `CRON_SECRET`, and `PREVIEW_SECRET` to three independent random values, and set `NEXT_PUBLIC_SERVER_URL` to the service's public HTTPS URL. Railway supplies `PORT` and `RAILWAY_VOLUME_MOUNT_PATH`. The volume is mounted only at runtime, so the build uses a disposable local SQLite file. Public pages render from the live database after startup.
 

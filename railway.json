@@ -5,7 +5,7 @@
     "buildCommand": "pnpm build"
   },
   "deploy": {
-    "startCommand": "pnpm start:railway",
+    "startCommand": "pnpm start",
     "healthcheckPath": "/",
     "healthcheckTimeout": 300
   }
