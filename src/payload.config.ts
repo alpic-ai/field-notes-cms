@@ -59,7 +59,11 @@ export default buildConfig({
   editor: defaultLexical,
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL || '',
+      // Railway mounts volumes at runtime, after the build. Use a local database
+      // for build-time route discovery and the mounted database for the live app.
+      url: process.env.RAILWAY_VOLUME_MOUNT_PATH
+        ? `file:${path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'field-notes.db')}`
+        : process.env.DATABASE_URL || 'file:./field-notes.db',
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
