@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { existsSync } from 'node:fs'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -17,6 +18,8 @@ import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const volumeDir = process.env.RAILWAY_VOLUME_MOUNT_PATH
+const persistentVolumeDir = volumeDir && existsSync(volumeDir) ? volumeDir : null
 
 export default buildConfig({
   admin: {
@@ -61,8 +64,8 @@ export default buildConfig({
     client: {
       // Railway mounts volumes at runtime, after the build. Use a local database
       // for build-time route discovery and the mounted database for the live app.
-      url: process.env.RAILWAY_VOLUME_MOUNT_PATH
-        ? `file:${path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'field-notes.db')}`
+      url: persistentVolumeDir
+        ? `file:${path.join(persistentVolumeDir, 'field-notes.db')}`
         : process.env.DATABASE_URL || 'file:./field-notes.db',
     },
   }),

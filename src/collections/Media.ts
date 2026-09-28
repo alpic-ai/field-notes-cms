@@ -6,6 +6,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
+import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
@@ -13,6 +14,8 @@ import { authenticated } from '../access/authenticated'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const volumeDir = process.env.RAILWAY_VOLUME_MOUNT_PATH
+const persistentVolumeDir = volumeDir && existsSync(volumeDir) ? volumeDir : null
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -41,8 +44,8 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     // Upload to the public/media directory in Next.js making them publicly accessible even outside of Payload
-    staticDir: process.env.RAILWAY_VOLUME_MOUNT_PATH
-      ? path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'media')
+    staticDir: persistentVolumeDir
+      ? path.join(persistentVolumeDir, 'media')
       : path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',
     focalPoint: true,
