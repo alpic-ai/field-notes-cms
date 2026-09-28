@@ -9,6 +9,7 @@ const photos = [
 ]
 
 export const metadata = { title: 'Photo credits | Field Notes' }
+export const dynamic = 'force-dynamic'
 
 export default function Credits() {
   return <main className="container max-w-3xl py-24 prose dark:prose-invert">
